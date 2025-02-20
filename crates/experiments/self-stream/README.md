@@ -42,6 +42,14 @@ But of course if we want the actor to exit on-demand without exhausting the stre
 
 In this approach, because we have to use the `Addr` directly, the only way to add a `StreamHandler` is to dispatch it from a `Handler` implementation, which is why we have a `FromStreamInner` enum for all the possible states of the stream.
 
+## Case 4
+
+This is pretty much Case 3, just that we replace the use of unsafe code with `Arc` and `Mutex`. Naturally this bumps our allocations up.
+
+And the con of this approach is that we have to lock the mutex every time we want to interact with the swarm.
+
+And from `Handler` / `StreamHandler` implementations, we have to return a `ResponseFuture`.
+
 ## Verdict
 
 I'd say the third approach is the best, I also checked allocations rudimentarily using the `alloc` module.
@@ -55,8 +63,10 @@ $ cargo run -p self-stream-case2 | rg '^allocating' | awk '{sum+=$2}END{print su
 135323
 $ cargo run -p self-stream-case3 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
 131227
+$ cargo run -p self-stream-case3 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+133464
 ```
 
 ```console
-Case 3 < Case 1 < Case 2
+Case 3 < Case 1 < Case 4 < Case 2
 ```

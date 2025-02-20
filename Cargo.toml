@@ -7,6 +7,7 @@ members = [
   "crates/experiments/self-stream/case1",
   "crates/experiments/self-stream/case2",
   "crates/experiments/self-stream/case3",
+  "crates/experiments/self-stream/case4",
 ]
 
 [workspace.dependencies]
