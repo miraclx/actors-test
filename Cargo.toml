@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/actix",
+  "crates/custom",
+  "crates/wasm",
+  "crates/experiments/self-stream/case1",
+  "crates/experiments/self-stream/case2",
+  "crates/experiments/self-stream/case3",
+]
+
+[workspace.dependencies]
+actix = "0.13.5"
+eyre = "0.6.12"
+color-eyre = "*"
+futures-util = "0.3.31"
+tokio = "1.43.0"
+tokio-stream = "0.1.17"
+tokio-util = "0.7.13"

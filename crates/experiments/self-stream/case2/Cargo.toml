@@ -1,0 +1,12 @@
+[package]
+name = "self-stream-case2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix.workspace = true
+color-eyre.workspace = true
+futures-util.workspace = true
+tokio = { workspace = true, features = ["macros"] }
+tokio-stream = { workspace = true, features = ["time"] }
+tokio-util = "0.7.13"
