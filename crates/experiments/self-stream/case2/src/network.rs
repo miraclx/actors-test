@@ -75,18 +75,6 @@ impl Handler<Advance> for NetworkManager {
     }
 }
 
-impl NetworkManager {
-    fn start(&mut self, rx: mpsc::Receiver<FromSwarm>, ctx: &mut Context<Self>) {
-        let fut = async {}.into_actor(self).map(|_, this, ctx| {
-            <NetworkManager as StreamHandler<FromSwarm>>::started(this, ctx);
-
-            ctx.notify(Advance { rx });
-        });
-
-        ctx.spawn(fut);
-    }
-}
-
 impl Actor for NetworkManager {
     type Context = Context<Self>;
 
@@ -94,11 +82,17 @@ impl Actor for NetworkManager {
     where
         Self: Actor<Context = Context<Self>>,
     {
-        let mut cx = Context::new();
+        let mut ctx = Context::new();
 
         let (tx, rx) = tokio::sync::mpsc::channel(1);
 
-        Self::start(&mut self, rx, &mut cx);
+        let fut = async {}.into_actor(&self).map(|_, this, ctx| {
+            <NetworkManager as StreamHandler<FromSwarm>>::started(this, ctx);
+
+            ctx.notify(Advance { rx });
+        });
+
+        ctx.spawn(fut);
 
         // we use Box::deref_mut instead of &mut *self.swarm to avoid subtle
         // changes to the type, since this MUST be a Box, or at least a pointer
@@ -108,9 +102,9 @@ impl Actor for NetworkManager {
         // UNSAFE: we select! below, guaraneteeing only one use of the Swarm
         let swarm = unsafe { &mut *ptr::from_mut(ptr) };
 
-        let addr = cx.address();
+        let addr = ctx.address();
 
-        let mut fut = cx.into_future(self);
+        let mut fut = ctx.into_future(self);
 
         tokio::task::spawn_local({
             let task = async move {

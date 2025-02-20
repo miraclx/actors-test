@@ -76,7 +76,7 @@ impl Actor for NetworkManager {
     where
         Self: Actor<Context = Context<Self>>,
     {
-        let cx = Context::new();
+        let ctx = Context::new();
 
         // we use Box::deref_mut instead of &mut *self.swarm to avoid subtle
         // changes to the type, since this MUST be a Box, or at least a pointer
@@ -86,9 +86,9 @@ impl Actor for NetworkManager {
         // UNSAFE: we select! below, guaraneteeing only one use of the Swarm
         let swarm = unsafe { &mut *ptr::from_mut(ptr) };
 
-        let addr = cx.address();
+        let addr = ctx.address();
 
-        let mut fut = cx.into_future(self);
+        let mut fut = ctx.into_future(self);
 
         tokio::task::spawn_local({
             addr.do_send(FromStreamInner::Started);

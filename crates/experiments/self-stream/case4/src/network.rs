@@ -77,13 +77,13 @@ impl Actor for NetworkManager {
     where
         Self: Actor<Context = Context<Self>>,
     {
-        let cx = Context::new();
+        let ctx = Context::new();
 
         let swarm = self.swarm.clone();
 
-        let addr = cx.address();
+        let addr = ctx.address();
 
-        let mut fut = cx.into_future(self);
+        let mut fut = ctx.into_future(self);
 
         tokio::task::spawn_local({
             addr.do_send(FromStreamInner::Started);
