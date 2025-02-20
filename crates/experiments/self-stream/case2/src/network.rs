@@ -62,13 +62,13 @@ impl Handler<Advance> for NetworkManager {
             async move { (rx.recv().await, rx) }
                 .into_actor(self)
                 .map(|(res, rx), this, ctx| {
-                    if let Some(res) = res {
-                        <NetworkManager as StreamHandler<FromSwarm>>::handle(this, res, ctx);
+                    let Some(res) = res else {
+                        return <NetworkManager as StreamHandler<FromSwarm>>::finished(this, ctx);
+                    };
 
-                        tokio::task::spawn_local(ctx.address().send(Advance { rx }));
-                    } else {
-                        <NetworkManager as StreamHandler<FromSwarm>>::finished(this, ctx);
-                    }
+                    <NetworkManager as StreamHandler<FromSwarm>>::handle(this, res, ctx);
+
+                    tokio::task::spawn_local(ctx.address().send(Advance { rx }));
                 });
 
         ctx.spawn(fut);
