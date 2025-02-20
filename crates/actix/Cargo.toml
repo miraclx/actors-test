@@ -1,0 +1,9 @@
+[package]
+name = "actors-actix"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix.workspace = true
+eyre.workspace = true
+color-eyre.workspace = true

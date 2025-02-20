@@ -4,9 +4,8 @@ use std::{ptr, task};
 
 use actix::prelude::*;
 use futures_util::future::OptionFuture;
-use futures_util::stream::Take;
-use futures_util::StreamExt;
-use tokio::sync::mpsc::Receiver;
+use futures_util::stream::{StreamExt, Take};
+use tokio::sync::mpsc;
 use tokio::time;
 use tokio_stream::wrappers::IntervalStream;
 
@@ -52,7 +51,7 @@ pub struct NetworkManager {
 #[derive(Message)]
 #[rtype(result = "()")]
 struct Advance {
-    rx: Receiver<FromSwarm>,
+    rx: mpsc::Receiver<FromSwarm>,
 }
 
 impl Handler<Advance> for NetworkManager {
@@ -77,7 +76,7 @@ impl Handler<Advance> for NetworkManager {
 }
 
 impl NetworkManager {
-    fn start(&mut self, rx: Receiver<FromSwarm>, ctx: &mut Context<Self>) {
+    fn start(&mut self, rx: mpsc::Receiver<FromSwarm>, ctx: &mut Context<Self>) {
         let fut = async {}.into_actor(self).map(|_, this, ctx| {
             <NetworkManager as StreamHandler<FromSwarm>>::started(this, ctx);
 

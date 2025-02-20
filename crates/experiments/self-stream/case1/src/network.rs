@@ -4,8 +4,7 @@ use std::{ptr, task};
 
 use actix::prelude::*;
 use futures_util::future::OptionFuture;
-use futures_util::stream::Take;
-use futures_util::StreamExt;
+use futures_util::stream::{StreamExt, Take};
 use tokio::time;
 use tokio_stream::wrappers::{IntervalStream, ReceiverStream};
 

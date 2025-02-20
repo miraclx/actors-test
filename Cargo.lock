@@ -63,11 +63,8 @@ name = "actors-actix"
 version = "0.1.0"
 dependencies = [
  "actix",
+ "color-eyre",
  "eyre",
- "futures-util",
- "tokio",
- "tokio-stream",
- "tokio-util",
 ]
 
 [[package]]
@@ -406,7 +403,6 @@ dependencies = [
  "futures-util",
  "tokio",
  "tokio-stream",
- "tokio-util",
 ]
 
 [[package]]
@@ -418,7 +414,6 @@ dependencies = [
  "futures-util",
  "tokio",
  "tokio-stream",
- "tokio-util",
 ]
 
 [[package]]
@@ -430,7 +425,6 @@ dependencies = [
  "futures-util",
  "tokio",
  "tokio-stream",
- "tokio-util",
 ]
 
 [[package]]
