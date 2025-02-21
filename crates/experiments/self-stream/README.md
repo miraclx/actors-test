@@ -50,9 +50,19 @@ And the con of this approach is that we have to lock the mutex every time we wan
 
 And from `Handler` / `StreamHandler` implementations, we have to return a `ResponseFuture`.
 
+## Case 5
+
+I noticed a race condition where mutations to the state may have been queued up before the stream is polled.
+
+Leading to one report saying "state changed to X", followed by another saying "the state is currently X-1" from the stream.
+
+On further investigation, I determined this was due to the stream task yielding too early, and after some iterations of more complex patterns, I settled on simply biasing the `select!` macro, which should fall back to the actor to handle the stream item before yielding, as that maintained the same behaviour.
+
+I also swapped out `Box::pin(OptionFuture)` with a `Fuse`-d future, pinning to the same memory as the surrounding async block. This brings our allocations down, making this the most efficient approach.
+
 ## Verdict
 
-I'd say the third approach is the best, I also checked allocations rudimentarily using the `alloc` module.
+I'd say the third and optimally, fifth approach is the best, I also checked allocations rudimentarily using the `alloc` module.
 
 Contrived example, but with a stream yielding 4 items:
 
@@ -63,10 +73,12 @@ $ cargo run -p self-stream-case2 | rg '^allocating' | awk '{sum+=$2}END{print su
 135323
 $ cargo run -p self-stream-case3 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
 131227
-$ cargo run -p self-stream-case3 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+$ cargo run -p self-stream-case4 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
 133464
+$ cargo run -p self-stream-case5 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+131050
 ```
 
 ```console
-Case 3 < Case 1 < Case 4 < Case 2
+Case 5 < Case 3 < Case 1 < Case 4 < Case 2
 ```
