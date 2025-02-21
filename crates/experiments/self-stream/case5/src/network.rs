@@ -113,9 +113,9 @@ impl Actor for NetworkManager {
             };
 
             async move {
-                pin_mut!(task);
+                let task = task.fuse();
 
-                let mut task = task.fuse();
+                pin_mut!(task);
 
                 loop {
                     tokio::select! {
