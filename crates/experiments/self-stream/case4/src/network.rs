@@ -73,10 +73,7 @@ impl Handler<FromStreamInner> for NetworkManager {
 impl Actor for NetworkManager {
     type Context = Context<Self>;
 
-    fn start(self) -> Addr<Self>
-    where
-        Self: Actor<Context = Context<Self>>,
-    {
+    fn start(self) -> Addr<Self> {
         let ctx = Context::new();
 
         let swarm = self.swarm.clone();

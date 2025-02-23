@@ -17,10 +17,7 @@ pub struct NetworkManager {
 impl Actor for NetworkManager {
     type Context = Context<Self>;
 
-    fn start(mut self) -> Addr<Self>
-    where
-        Self: Actor<Context = Context<Self>>,
-    {
+    fn start(mut self) -> Addr<Self> {
         spawn_actor!(
             self @ NetworkManager => {
                 .repeat as FromRepeatingStream,

@@ -72,10 +72,7 @@ impl Handler<FromStreamInner> for NetworkManager {
 impl Actor for NetworkManager {
     type Context = Context<Self>;
 
-    fn start(mut self) -> Addr<Self>
-    where
-        Self: Actor<Context = Context<Self>>,
-    {
+    fn start(mut self) -> Addr<Self> {
         let ctx = Context::new();
 
         // we use Box::deref_mut instead of &mut *self.swarm to avoid subtle

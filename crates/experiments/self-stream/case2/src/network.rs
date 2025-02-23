@@ -78,10 +78,7 @@ impl Handler<Advance> for NetworkManager {
 impl Actor for NetworkManager {
     type Context = Context<Self>;
 
-    fn start(mut self) -> Addr<Self>
-    where
-        Self: Actor<Context = Context<Self>>,
-    {
+    fn start(mut self) -> Addr<Self> {
         let mut ctx = Context::new();
 
         let (tx, rx) = tokio::sync::mpsc::channel(1);
