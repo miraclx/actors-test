@@ -1,9 +1,10 @@
 use actix::Actor;
-use network::{NetworkManager, Swarm};
 use tokio::time;
 
 mod alloc;
 mod network;
+
+use network::{NetworkManager, Swarm};
 
 #[global_allocator]
 static GLOBAL: alloc::MyAllocator = alloc::MyAllocator;
@@ -39,7 +40,7 @@ async fn main() -> color_eyre::Result<()> {
     drop(network_addr);
     println!("dropped the networking actor, the swarm should shutdown");
 
-    // pending::<()>().await;
+    interval.tick().await;
 
     println!("All done here!");
 

@@ -45,7 +45,7 @@ async fn main() -> color_eyre::Result<()> {
     drop(network_addr);
     println!("dropped the networking actor, the swarm should shutdown");
 
-    // pending::<()>().await;
+    interval.tick().await;
 
     println!("All done here!");
 
