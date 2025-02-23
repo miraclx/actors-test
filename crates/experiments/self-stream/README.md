@@ -60,9 +60,13 @@ On further investigation, I determined this was due to the stream task yielding 
 
 I also swapped out `Box::pin(OptionFuture)` with a `Fuse`-d future, pinning to the same memory as the surrounding async block. This brings our allocations down, making this the most efficient approach.
 
+## Case 6
+
+This is pretty much Case 5, but made into a macro, to reduce boilerplate. For some unknown reason, this led to even less allocations. Yay, I guess.
+
 ## Verdict
 
-I'd say the third and optimally, fifth approach is the best, I also checked allocations rudimentarily using the `alloc` module.
+I'd say the third and optimally, fifth (really 6th) approach is the best, I also checked allocations rudimentarily using the `alloc` module.
 
 Contrived example, but with a stream yielding 4 items:
 
@@ -77,8 +81,10 @@ $ cargo run -p self-stream-case4 | rg '^allocating' | awk '{sum+=$2}END{print su
 133464
 $ cargo run -p self-stream-case5 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
 131050
+$ cargo run -p self-stream-case6 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+131031
 ```
 
 ```console
-Case 5 < Case 3 < Case 1 < Case 4 < Case 2
+Case 6 < Case 5 < Case 3 < Case 1 < Case 4 < Case 2
 ```

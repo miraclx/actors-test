@@ -9,6 +9,7 @@ members = [
   "crates/experiments/self-stream/case3",
   "crates/experiments/self-stream/case4",
   "crates/experiments/self-stream/case5",
+  "crates/experiments/self-stream/case6",
 ]
 
 [workspace.dependencies]
@@ -16,5 +17,6 @@ actix = "0.13.5"
 eyre = "0.6.12"
 color-eyre = "*"
 futures-util = "0.3.31"
+paste = "1.0.15"
 tokio = "1.43.0"
 tokio-stream = "0.1.17"
