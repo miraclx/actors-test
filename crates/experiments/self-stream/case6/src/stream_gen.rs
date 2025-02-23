@@ -21,7 +21,7 @@ pub struct StreamGen<S, V> {
 
 impl<S, V> StreamGen<S, V> {
     pub fn new(stream: S, count: usize) -> Self {
-        let interval = time::interval(time::Duration::from_secs(1));
+        let interval = time::interval(time::Duration::from_millis(200));
 
         Self {
             stream: Some(StreamGenState::Waiting(stream)),

@@ -15,7 +15,7 @@ pub struct Swarm {
 
 impl Swarm {
     pub fn new(value: usize, count: usize) -> Self {
-        let interval = time::interval(time::Duration::from_secs(1));
+        let interval = time::interval(time::Duration::from_millis(200));
 
         Self {
             value,

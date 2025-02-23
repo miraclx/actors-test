@@ -18,7 +18,7 @@ async fn main() -> color_eyre::Result<()> {
     color_eyre::install()?;
 
     let network_addr = NetworkManager {
-        repeat: Box::new(StreamGen::new(stream::repeat(0), 4)),
+        repeat: Box::new(StreamGen::new(stream::repeat(0), 30)),
     }
     .start();
 

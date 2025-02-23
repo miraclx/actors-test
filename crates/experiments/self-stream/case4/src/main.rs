@@ -16,7 +16,7 @@ async fn main() -> color_eyre::Result<()> {
     color_eyre::install()?;
 
     let network_addr = NetworkManager {
-        swarm: Arc::new(Mutex::new(Swarm::new(0, 4))),
+        swarm: Arc::new(Mutex::new(Swarm::new(0, 30))),
     }
     .start();
 

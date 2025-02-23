@@ -651,31 +651,31 @@ deallocating 00000000000042 bytes
 got 20 from the repeating stream
 deallocating 00000000000023 bytes
 deallocating 00000000000042 bytes
+finished receiving repeated messages
+deallocating 00000000000023 bytes
+allocating 00000000000084 bytes
+allocating 00000000000042 bytes
+allocating 00000000000023 bytes
+allocating 00000000000042 bytes
+deallocating 00000000000084 bytes
+deallocating 00000000000042 bytes
+allocating 00000000000084 bytes
+allocating 00000000000042 bytes
+allocating 00000000000023 bytes
+allocating 00000000000042 bytes
+deallocating 00000000000084 bytes
+deallocating 00000000000042 bytes
+deallocating 00000000000042 bytes
 got 29 from the counter
+deallocating 00000000000023 bytes
+deallocating 00000000000042 bytes
+finished receiving counter messages
 deallocating 00000000000023 bytes
 allocating 00000000000046 bytes
 allocating 00000000000023 bytes
 allocating 00000000000042 bytes
 deallocating 00000000000042 bytes
 setting 30 on the repeating stream
-deallocating 00000000000023 bytes
-allocating 00000000000084 bytes
-allocating 00000000000042 bytes
-allocating 00000000000023 bytes
-allocating 00000000000042 bytes
-deallocating 00000000000084 bytes
-deallocating 00000000000042 bytes
-allocating 00000000000084 bytes
-allocating 00000000000042 bytes
-allocating 00000000000023 bytes
-allocating 00000000000042 bytes
-deallocating 00000000000084 bytes
-deallocating 00000000000042 bytes
-deallocating 00000000000042 bytes
-got 30 from the repeating stream
-deallocating 00000000000023 bytes
-deallocating 00000000000042 bytes
-got 30 from the counter
 deallocating 00000000000023 bytes
 deallocating 00000000000046 bytes
 deallocating 00000000000084 bytes

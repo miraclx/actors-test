@@ -92,3 +92,26 @@ $ cargo run -p self-stream-case6 | rg '^allocating' | awk '{sum+=$2}END{print su
 ```console
 Case 6 < Case 5 < Case 3 < Case 1 < Case 4 < Case 2
 ```
+
+Another example: a stream yielding 30 items:
+
+```console
+$ cargo run -p self-stream-case1 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+131939
+$ cargo run -p self-stream-case2 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+156721
+$ cargo run -p self-stream-case3 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+136193
+$ cargo run -p self-stream-case4 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+138430
+$ cargo run -p self-stream-case5 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+136016
+$ cargo run -p self-stream-case6 | rg '^allocating' | awk '{sum+=$2}END{print sum}'
+135997
+```
+
+```console
+Case 1 < Case 6 < Case 5 < Case 3 < Case 4 < Case 2
+```
+
+With case 1 not actually being a solution, case 6 still comes out on top.
