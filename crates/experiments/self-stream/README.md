@@ -64,6 +64,10 @@ I also swapped out `Box::pin(OptionFuture)` with a `Fuse`-d future, pinning to t
 
 This is pretty much Case 5, but made into a macro, to reduce boilerplate. For some unknown reason, this led to even less allocations. Yay, I guess.
 
+## Case 6 Refined
+
+An extension of case 6, that breaks the compatibility with other cases. For the sake of testing the ability to consume multiple streams in `Self`. This is not independently compared with the others, since it inherits the same behaviour as case 6.
+
 ## Verdict
 
 I'd say the third and optimally, fifth (really 6th) approach is the best, I also checked allocations rudimentarily using the `alloc` module.
